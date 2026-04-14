@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تسجيل رحلة</title>
+
+<style>
+body{font-family:Arial;direction:rtl;background:#f5f5f5;padding:15px}
+.container{max-width:420px;margin:auto;background:#fff;padding:15px;border-radius:10px}
+input,select{width:100%;padding:10px;margin-top:10px;border:1px solid #ccc;border-radius:6px}
+.row{display:flex;gap:10px}
+button{width:100%;padding:12px;margin-top:15px;background:#4CAF50;color:#fff;border:none;border-radius:6px}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2 style="text-align:center;">تسجيل رحلة</h2>
+
+<form id="tripForm">
+
+<input type="date" name="date" required>
+
+<select name="driver" required>
+<option value="">السائق</option>
+<option>محمد</option>
+<option>أحمد</option>
+<option>علي</option>
+</select>
+
+<select name="car" required>
+<option value="">السيارة</option>
+<option>1234</option>
+<option>5678</option>
+<option>9012</option>
+</select>
+
+<select name="company" required>
+<option value="">الشركة</option>
+<option>شركة 1</option>
+<option>شركة 2</option>
+</select>
+
+<div class="row">
+<input type="text" name="from" placeholder="من" required>
+<input type="text" name="to" placeholder="إلى" required>
+</div>
+
+<button type="submit">إرسال</button>
+
+</form>
+</div>
+
+<script>
+document.getElementById("tripForm").addEventListener("submit", function(e){
+e.preventDefault();
+
+let formData = new FormData(this);
+
+fetch("https://script.google.com/macros/s/AKfycbwFmzy6ppvi5x-4cyobBlX9d-LE38tnVBRwtZjuCyymAz_YmlGTHyGcOUDu0a_zXOwO/exec", {
+method: "POST",
+body: formData
+})
+.then(res => res.text())
+.then(() => {
+alert("تم الإرسال بنجاح ✅");
+window.location.href = "view.html";
+})
+.catch(() => alert("حدث خطأ ❌"));
+});
+</script>
+
+</body>
+</html>

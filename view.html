@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>آخر رحلة</title>
+
+<style>
+body{font-family:Arial;direction:rtl;background:#f5f5f5;padding:15px}
+.container{max-width:500px;margin:auto}
+.card{background:#fff;padding:15px;margin-top:20px;border-radius:10px;box-shadow:0 0 5px #ccc}
+.title{color:#4CAF50;font-weight:bold;font-size:18px}
+.small{font-size:14px;color:#555;margin-top:5px}
+button{width:100%;padding:10px;background:#4CAF50;color:#fff;border:none;border-radius:6px;margin-top:10px}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2 style="text-align:center;">📋 آخر رحلة</h2>
+
+<button onclick="window.location.href='index.html'">➕ تسجيل رحلة جديدة</button>
+
+<div id="data">جاري التحميل...</div>
+
+</div>
+
+<script>
+
+fetch("https://script.google.com/macros/s/AKfycbwFmzy6ppvi5x-4cyobBlX9d-LE38tnVBRwtZjuCyymAz_YmlGTHyGcOUDu0a_zXOwO/exec")
+.then(res => res.json())
+.then(item => {
+
+    if (!item.date) {
+        document.getElementById("data").innerHTML = "لا توجد بيانات";
+        return;
+    }
+
+    document.getElementById("data").innerHTML = `
+    <div class="card">
+        <div class="title">${item.driver} - ${item.car}</div>
+        <div class="small">📅 التاريخ: ${item.date}</div>
+        <div class="small">🏢 الشركة: ${item.company}</div>
+        <div class="small">🚩 من: ${item.from} → إلى: ${item.to}</div>
+    </div>
+    `;
+
+})
+.catch(() => {
+    document.getElementById("data").innerHTML = "خطأ في التحميل";
+});
+
+</script>
+
+</body>
+</html>
