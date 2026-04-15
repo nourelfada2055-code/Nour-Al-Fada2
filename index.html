@@ -1,86 +1,109 @@
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
+  <meta charset="UTF-8">
+  <title>تسجيل رحلة</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- منع الكاش -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 
-<script>
-setTimeout(() => {
-  location.reload(true);
-}, 5000); // كل 5 ثواني
-</script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تسجيل رحلة</title>
+  <style>
+    body {
+      font-family: Arial;
+      direction: rtl;
+      text-align: center;
+      padding: 20px;
+      background: #f5f5f5;
+    }
 
-<style>
-body{font-family:Arial;direction:rtl;background:#f5f5f5;padding:15px}
-.container{max-width:420px;margin:auto;background:#fff;padding:15px;border-radius:10px}
-input,select{width:100%;padding:10px;margin-top:10px;border:1px solid #ccc;border-radius:6px}
-.row{display:flex;gap:10px}
-button{width:100%;padding:12px;margin-top:15px;background:#4CAF50;color:#fff;border:none;border-radius:6px}
-</style>
+    form {
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      font-size: 16px;
+    }
+
+    button {
+      background: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
-<h2 style="text-align:center;">تسجيل رحلة</h2>
+<h2>تسجيل رحلة</h2>
 
 <form id="tripForm">
 
-<input type="date" name="date" required>
+  <input type="date" id="date" required>
 
-<select name="driver" required>
-<option value="">السائق</option>
-<option>محمد</option>
-<option>أحمد</option>
-<option>علي</option>
-</select>
+  <select id="driver" required>
+    <option value="">اختر السائق</option>
+    <option>أحمد</option>
+    <option>محمد</option>
+  </select>
 
-<select name="car" required>
-<option value="">السيارة</option>
-<option>3602</option>
-<option>3525</option>
-<option>3521</option>
-<option>3523</option>
-</select>
+  <select id="car" required>
+    <option value="">رقم السيارة</option>
+    <option>123</option>
+    <option>456</option>
+  </select>
 
-<select name="company" required>
-<option value="">الشركة</option>
-<option>ابو داود</option>
-<option>المذاق العربي</option>
-</select>
+  <select id="company" required>
+    <option value="">الشركة</option>
+    <option>شركة 1</option>
+    <option>شركة 2</option>
+  </select>
 
-<div class="row">
-<input type="text" name="from" placeholder="من" required>
-<input type="text" name="to" placeholder="إلى" required>
-</div>
+  <input type="text" id="from" placeholder="من" required>
+  <input type="text" id="to" placeholder="إلى" required>
 
-<button type="submit">إرسال</button>
+  <button type="submit">إرسال</button>
 
 </form>
-</div>
 
 <script>
-document.getElementById("tripForm").addEventListener("submit", function(e){
-e.preventDefault();
+document.getElementById("tripForm").addEventListener("submit", function(e) {
+  e.preventDefault(); // 🔥 يمنع الريلود
 
-let formData = new FormData(this);
+  const data = {
+    date: document.getElementById("date").value,
+    driver: document.getElementById("driver").value,
+    car: document.getElementById("car").value,
+    company: document.getElementById("company").value,
+    from: document.getElementById("from").value,
+    to: document.getElementById("to").value
+  };
 
-fetch("https://script.google.com/macros/s/AKfycbwFmzy6ppvi5x-4cyobBlX9d-LE38tnVBRwtZjuCyymAz_YmlGTHyGcOUDu0a_zXOwO/exec", {
-method: "POST",
-body: formData
-})
-.then(res => res.text())
-.then(() => {
-alert("تم الإرسال بنجاح ✅");
-window.location.href = "view.html";
-})
-.catch(() => alert("حدث خطأ ❌"));
+  fetch("https://script.google.com/macros/s/AKfycbwFmzy6ppvi5x-4cyobBlX9d-LE38tnVBRwtZjuCyymAz_YmlGTHyGcOUDu0a_zXOwO/exec", {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+  .then(res => res.text())
+  .then(response => {
+    alert("تم الإرسال بنجاح ✅");
+
+    // مسح البيانات بعد الإرسال
+    document.getElementById("tripForm").reset();
+  })
+  .catch(err => {
+    alert("حدث خطأ ❌");
+  });
 });
 </script>
-
-</body>
-</html>
