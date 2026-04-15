@@ -1,86 +1,131 @@
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>تسجيل رحلة</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- منع الكاش -->
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+<title>تسجيل رحلة</title>
 
-  <style>
-    body {
-      font-family: Arial;
-      direction: rtl;
-      text-align: center;
-      padding: 20px;
-      background: #f5f5f5;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    form {
-      background: #fff;
-      padding: 15px;
-      border-radius: 10px;
-      max-width: 400px;
-      margin: auto;
-      box-shadow: 0 0 10px #ccc;
-    }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-    input, select, button {
-      width: 100%;
-      padding: 10px;
-      margin: 5px 0;
-      font-size: 16px;
-    }
+/* الكارت */
+.container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  width: 95%;
+  max-width: 400px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  animation: fadeIn 0.8s ease;
+}
 
-    button {
-      background: green;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-  </style>
+h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* الحقول */
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+input:focus, select:focus {
+  border-color: #4facfe;
+  box-shadow: 0 0 5px #4facfe;
+  outline: none;
+}
+
+/* الزر */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #43e97b, #38f9d7);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* أنيميشن */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+
 </head>
 
 <body>
 
-<h2>تسجيل رحلة</h2>
+<div class="container">
+<h2>🚗 تسجيل رحلة</h2>
 
 <form id="tripForm">
 
-  <input type="date" id="date" required>
+<input type="date" id="date" required>
 
-  <select id="driver" required>
-    <option value="">اختر السائق</option>
-    <option>أحمد</option>
-    <option>محمد</option>
-  </select>
+<select id="driver" required>
+<option value="">اختر السائق</option>
+<option>أحمد</option>
+<option>محمد</option>
+</select>
 
-  <select id="car" required>
-    <option value="">رقم السيارة</option>
-    <option>123</option>
-    <option>456</option>
-  </select>
+<select id="car" required>
+<option value="">رقم السيارة</option>
+<option>123</option>
+<option>456</option>
+</select>
 
-  <select id="company" required>
-    <option value="">الشركة</option>
-    <option>شركة 1</option>
-    <option>شركة 2</option>
-  </select>
+<select id="company" required>
+<option value="">الشركة</option>
+<option>شركة 1</option>
+<option>شركة 2</option>
+</select>
 
-  <input type="text" id="from" placeholder="من" required>
-  <input type="text" id="to" placeholder="إلى" required>
+<input type="text" id="from" placeholder="من" required>
+<input type="text" id="to" placeholder="إلى" required>
 
-  <button type="submit">إرسال</button>
+<button type="submit">إرسال 🚀</button>
 
 </form>
+</div>
 
 <script>
 document.getElementById("tripForm").addEventListener("submit", function(e) {
-  e.preventDefault(); // 🔥 يمنع الريلود
+  e.preventDefault();
 
   const data = {
     date: document.getElementById("date").value,
@@ -96,14 +141,15 @@ document.getElementById("tripForm").addEventListener("submit", function(e) {
     body: JSON.stringify(data)
   })
   .then(res => res.text())
-  .then(response => {
+  .then(() => {
     alert("تم الإرسال بنجاح ✅");
-
-    // مسح البيانات بعد الإرسال
     document.getElementById("tripForm").reset();
   })
-  .catch(err => {
+  .catch(() => {
     alert("حدث خطأ ❌");
   });
 });
 </script>
+
+</body>
+</html>
