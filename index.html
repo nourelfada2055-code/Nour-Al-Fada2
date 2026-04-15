@@ -29,7 +29,6 @@ body {
   width: 95%;
   max-width: 380px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  animation: fadeIn 0.6s ease;
   text-align: center;
 }
 
@@ -58,7 +57,7 @@ input, select {
   background: #fafafa;
 }
 
-/* 🔥 الحقل كله يتحول أخضر */
+/* عند التركيز */
 input:focus, select:focus {
   border-color: #2ecc71;
   background: #eafaf1;
@@ -67,7 +66,7 @@ input:focus, select:focus {
   outline: none;
 }
 
-/* زر */
+/* الزر */
 button {
   width: 100%;
   padding: 12px;
@@ -84,18 +83,6 @@ button {
 button:hover {
   background: #27ae60;
   transform: translateY(-2px);
-}
-
-/* أنيميشن */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 </style>
 
@@ -114,24 +101,20 @@ button:hover {
 
 <select id="driver" required>
 <option value="">اختر السائق</option>
-<option>عبدالله نصرالدين</option>
-<option>محمد اسماعيل</option>
-  <option>علي عبدالرازق</option>
-<option>سلمان خان</option>
+<option>أحمد</option>
+<option>محمد</option>
 </select>
 
 <select id="car" required>
 <option value="">رقم السيارة</option>
-<option>3523</option>
-<option>3521</option>
-  <option>3525</option>
-<option>3602</option>
+<option>123</option>
+<option>456</option>
 </select>
 
 <select id="company" required>
 <option value="">الشركة</option>
-<option>شركة المذاق العربي</option>
-<option>شركة ابو داود</option>
+<option>شركة 1</option>
+<option>شركة 2</option>
 </select>
 
 <input type="text" id="from" placeholder="من" required>
@@ -140,24 +123,24 @@ button:hover {
 <button type="submit">إرسال</button>
 
 </form>
+
 </div>
 
 <script>
 document.getElementById("tripForm").addEventListener("submit", function(e) {
   e.preventDefault();
 
-  const data = {
-    date: document.getElementById("date").value,
-    driver: document.getElementById("driver").value,
-    car: document.getElementById("car").value,
-    company: document.getElementById("company").value,
-    from: document.getElementById("from").value,
-    to: document.getElementById("to").value
-  };
+  const formData = new FormData();
+  formData.append("date", document.getElementById("date").value);
+  formData.append("driver", document.getElementById("driver").value);
+  formData.append("car", document.getElementById("car").value);
+  formData.append("company", document.getElementById("company").value);
+  formData.append("from", document.getElementById("from").value);
+  formData.append("to", document.getElementById("to").value);
 
-  fetch("https://script.google.com/macros/s/AKfycbyodm-Ga135uWFOHsNklDLzKfp-fi9B7nQ680ZcChbI5zZWSiRvS9dqrC8LU35Sx_Yf/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbwC6iiUmvdrhxi6T3r2M-TKl9tC0zd1rbPNKLYaQn7XctwzG1L2xjsHD7mOytA_0WRe/exec", {
     method: "POST",
-    body: JSON.stringify(data)
+    body: formData
   })
   .then(res => res.text())
   .then(() => {
