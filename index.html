@@ -14,7 +14,7 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma;
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  background: #f2f4f7; /* هادي */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,11 +25,11 @@ body {
 .container {
   background: #fff;
   padding: 20px;
-  border-radius: 20px;
+  border-radius: 16px;
   width: 95%;
-  max-width: 400px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-  animation: fadeIn 0.8s ease;
+  max-width: 380px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  animation: fadeIn 0.6s ease;
 }
 
 h2 {
@@ -41,28 +41,37 @@ h2 {
 /* الحقول */
 input, select {
   width: 100%;
-  padding: 10px;
-  margin: 6px 0;
+  padding: 11px;
+  margin: 7px 0;
   border-radius: 10px;
   border: 1px solid #ddd;
   font-size: 15px;
-  transition: 0.3s;
+  transition: all 0.25s ease;
+  background: #fafafa;
 }
 
+/* عند الضغط */
 input:focus, select:focus {
-  border-color: #4facfe;
-  box-shadow: 0 0 5px #4facfe;
+  border-color: #4a90e2;
+  background: #fff;
+  transform: scale(1.03);
+  box-shadow: 0 0 0 3px rgba(74,144,226,0.15);
   outline: none;
+}
+
+/* عند الكتابة */
+input:not(:placeholder-shown) {
+  border-color: #4a90e2;
 }
 
 /* الزر */
 button {
   width: 100%;
   padding: 12px;
-  margin-top: 10px;
+  margin-top: 12px;
   border: none;
   border-radius: 10px;
-  background: linear-gradient(135deg, #43e97b, #38f9d7);
+  background: #4a90e2;
   color: #fff;
   font-size: 16px;
   cursor: pointer;
@@ -70,14 +79,15 @@ button {
 }
 
 button:hover {
-  transform: scale(1.05);
+  background: #357abd;
+  transform: translateY(-2px);
 }
 
-/* أنيميشن */
+/* أنيميشن دخول */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(15px);
   }
   to {
     opacity: 1;
@@ -118,7 +128,7 @@ button:hover {
 <input type="text" id="from" placeholder="من" required>
 <input type="text" id="to" placeholder="إلى" required>
 
-<button type="submit">إرسال 🚀</button>
+<button type="submit">إرسال</button>
 
 </form>
 </div>
